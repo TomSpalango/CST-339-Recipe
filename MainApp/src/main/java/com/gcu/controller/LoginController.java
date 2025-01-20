@@ -6,12 +6,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.gcu.model.Login;
 
 import jakarta.validation.Valid;
 
 @Controller
+@SessionAttributes("username")
 public class LoginController {
 
     @GetMapping("/login")
@@ -25,10 +28,15 @@ public class LoginController {
         if (result.hasErrors()) {
             return "login";
         }
-        if ("user".equals(login.getUsername()) && "password".equals(login.getPassword())) {
-            return "redirect:/";
-        }
-        model.addAttribute("error", "Invalid username or password");
-        return "login";
+        // Accept any username/password
+        model.addAttribute("username", login.getUsername());
+        System.out.println("Logged in as: " + login.getUsername()); // Debug log
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(SessionStatus status) {
+        status.setComplete();
+        return "redirect:/";
     }
 }
