@@ -1,44 +1,34 @@
 package com.gcu.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import controller.LoginModel;  // Import the LoginModel class
+import com.gcu.model.Login;
 
 @Controller
-public class LoginController 
-{
+public class LoginController {
 
     @GetMapping("/login")
-    public String showLoginPage(Model model) 
-    {
-        // Create a new LoginModel instance and add it to the model
-        model.addAttribute("loginModel", new Login());
-        model.addAttribute("error", null);
-        return "login";  // Return the login page (login.html)
+    public String showLoginPage(Model model) {
+        model.addAttribute("login", new Login());
+        return "login";
     }
 
     @PostMapping("/login")
-    public String processLogin(Login loginModel, Model model) 
-    {
-        // Simulate user authentication
-        if ("user".equals(loginModel.getUsername()) && "password".equals(loginModel.getPassword())) 
-        {
-            loginModel.setAuthenticated(true);  // Set the authentication flag
-            return "redirect:/home";  // Redirect to the home page if successful
-        } else {
-            model.addAttribute("error", "Invalid username or password");
-            model.addAttribute("loginModel", loginModel);  // Pass the LoginModel back to the login page
-            return "login";  // Return to the login page with an error
+    public String processLogin(@Valid @ModelAttribute Login login, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "login";
         }
-    }
-
-    @GetMapping("/home")
-    public String showHomePage() 
-    {
-        return "home"; //returns to home.html
+        if ("user".equals(login.getUsername()) && "password".equals(login.getPassword())) {
+            return "redirect:/";
+        }
+        model.addAttribute("error", "Invalid username or password");
+        return "login";
     }
 }

@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Login</title>
-</head>
+<head th:insert="~{fragments/header :: header}"></head>
 <body>
-    <h1>Login</h1>
-    <form action="#" th:action="@{/login}" th:object="${loginModel}" method="post">
-        <div>
-            <label for="username">Username</label>
-            <input type="text" id="username" th:field="*{username}" placeholder="Enter username" required>
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" th:field="*{password}" placeholder="Enter password" required>
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-
-        <div th:if="${error}">
-            <p style="color: red;" th:text="${error}"></p> <!-- Error message -->
-        </div>
-    </form>
+    <div class="container">
+        <h2>Login</h2>
+        <form th:action="@{/login}" th:object="${login}" method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" th:field="*{username}" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" th:field="*{password}" required>
+            </div>
+            <div class="mb-3" th:if="${error}">
+                <p class="text-danger" th:text="${error}"></p>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+    <footer th:insert="~{fragments/footer :: footer}"></footer>
 </body>
 </html>

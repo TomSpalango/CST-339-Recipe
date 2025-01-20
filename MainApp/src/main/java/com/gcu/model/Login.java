@@ -1,11 +1,16 @@
 package com.gcu.model;
 
-public class Login {
-    private String username;
-    private String password;
-    private boolean isAuthenticated;
+import jakarta.validation.constraints.NotEmpty;
 
-    // Getter and Setter methods
+public class Login {
+
+    @NotEmpty(message = "Username is required")
+    private String username;
+
+    @NotEmpty(message = "Password is required")
+    private String password;
+
+    // Getters and Setters
     public String getUsername() {
         return username;
     }
@@ -20,13 +25,5 @@ public class Login {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isAuthenticated() {
-        return isAuthenticated;
-    }
-
-    public void setAuthenticated(boolean isAuthenticated) {
-        this.isAuthenticated = isAuthenticated;
     }
 }

@@ -2,12 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>SavoryScripts</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css.}">
+    <title th:text="${title}">SavoryScripts</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
 <body>
-    <div th:insert="~{fragments/header :: header}"></div>
-    <div th:insert="~{fragments/footer :: footer}"></div>
+    <header th:insert="~{fragments/header :: header}"></header>
+    <div class="container">
+        <main th:fragment="content"></main>
+    </div>
+    <footer th:insert="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
