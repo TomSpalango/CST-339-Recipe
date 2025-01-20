@@ -1,4 +1,4 @@
-package com.gcu.savoryscripts.controller;
+package com.gcu.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
