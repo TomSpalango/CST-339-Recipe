@@ -18,29 +18,36 @@
     <div class="container mt-5">
         <h2>Register</h2>
         <form th:action="@{/register}" th:object="${user}" method="post">
+            <!-- Individual Fields with Error Messages -->
             <div class="mb-3">
                 <label for="firstName" class="form-label">First Name</label>
                 <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+                <div class="text-danger" th:errors="*{firstName}"></div>
             </div>
             <div class="mb-3">
                 <label for="lastName" class="form-label">Last Name</label>
                 <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+                <div class="text-danger" th:errors="*{lastName}"></div>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                <div class="text-danger" th:errors="*{email}"></div>
             </div>
             <div class="mb-3">
                 <label for="phone" class="form-label">Phone Number</label>
                 <input type="text" class="form-control" id="phone" th:field="*{phone}" required>
+                <div class="text-danger" th:errors="*{phone}"></div>
             </div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" id="username" th:field="*{username}" required>
+                <div class="text-danger" th:errors="*{username}"></div>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" th:field="*{password}" required>
+                <div class="text-danger" th:errors="*{password}"></div>
             </div>
             <button type="submit" class="btn btn-custom">Register</button>
         </form>

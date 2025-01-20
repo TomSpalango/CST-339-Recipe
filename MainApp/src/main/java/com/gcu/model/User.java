@@ -2,6 +2,8 @@ package com.gcu.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class User {
 
@@ -14,13 +16,13 @@ public class User {
     @Email(message = "Valid email is required")
     private String email;
 
-    @NotEmpty(message = "Phone number is required")
+    @Pattern(regexp = "^\\d{10}$", message = "Phone number must be 10 digits")
     private String phone;
 
     @NotEmpty(message = "Username is required")
     private String username;
 
-    @NotEmpty(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
     // Getters and Setters
