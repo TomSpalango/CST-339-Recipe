@@ -1,6 +1,7 @@
 package com.gcu.model;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 public class Login {
 
@@ -8,6 +9,7 @@ public class Login {
     private String username;
 
     @NotEmpty(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
     // Getters and Setters

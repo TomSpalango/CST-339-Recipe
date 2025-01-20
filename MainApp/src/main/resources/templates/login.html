@@ -21,10 +21,12 @@
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" id="username" th:field="*{username}" required>
+                <div class="text-danger" th:errors="*{username}"></div>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" th:field="*{password}" required>
+                <div class="text-danger" th:errors="*{password}"></div>
             </div>
             <div class="mb-3" th:if="${error}">
                 <p class="text-danger" th:text="${error}"></p>
