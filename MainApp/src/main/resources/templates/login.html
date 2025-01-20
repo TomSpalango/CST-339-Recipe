@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{fragments/header :: header}"></head>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
 <body>
+    <header th:replace="~{fragments/header :: header}"></header>
     <div class="container mt-5">
         <h2>Login</h2>
         <form th:action="@{/login}" th:object="${login}" method="post">
@@ -16,9 +20,9 @@
             <div class="mb-3" th:if="${error}">
                 <p class="text-danger" th:text="${error}"></p>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-custom">Login</button>
         </form>
     </div>
-    <footer th:insert="~{fragments/footer :: footer}"></footer>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{fragments/header :: header}"></head>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
 <body>
+    <header th:replace="~{fragments/header :: header}"></header>
     <div class="container mt-5">
         <h1>Welcome to the Application!</h1>
         <p>You are now logged in.</p>
     </div>
-    <footer th:insert="~{fragments/footer :: footer}"></footer>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>

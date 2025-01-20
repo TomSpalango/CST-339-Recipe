@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{fragments/header :: header}"></head>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
 <body>
+    <header th:replace="~{fragments/header :: header}"></header>
     <div class="container mt-5">
         <div class="text-center">
             <h1 th:text="${title}">Welcome to SavoryScript</h1>
             <p class="lead">Your online recipe and meal-plan library!</p>
-            <a href="#" class="btn btn-primary">Get Started</a>
+            <a href="#" class="btn btn-custom">Get Started</a>
         </div>
     </div>
-    <footer th:insert="~{fragments/footer :: footer}"></footer>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
