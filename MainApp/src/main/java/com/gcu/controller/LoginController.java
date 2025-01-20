@@ -16,13 +16,13 @@ public class LoginController
     public String showLoginPage(Model model) 
     {
         // Create a new LoginModel instance and add it to the model
-        model.addAttribute("loginModel", new LoginModel());
+        model.addAttribute("loginModel", new Login());
         model.addAttribute("error", null);
         return "login";  // Return the login page (login.html)
     }
 
     @PostMapping("/login")
-    public String processLogin(LoginModel loginModel, Model model) 
+    public String processLogin(Login loginModel, Model model) 
     {
         // Simulate user authentication
         if ("user".equals(loginModel.getUsername()) && "password".equals(loginModel.getPassword())) 

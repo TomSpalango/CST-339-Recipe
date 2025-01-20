@@ -1,6 +1,6 @@
-package controller;
+package com.gcu.model;
 
-public class LoginModel {
+public class Login {
     private String username;
     private String password;
     private boolean isAuthenticated;

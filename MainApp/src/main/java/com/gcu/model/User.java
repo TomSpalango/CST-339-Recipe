@@ -1,4 +1,4 @@
-package com.gcu.savoryscripts.model;
+package com.gcu.model;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

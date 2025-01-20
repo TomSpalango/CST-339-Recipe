@@ -1,4 +1,4 @@
-package com.gcu.controller;
+package com.gcu.model;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
