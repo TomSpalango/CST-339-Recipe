@@ -1,42 +1,55 @@
 package com.gcu.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-
-import com.gcu.model.Login;
-
-import jakarta.validation.Valid;
 
 @Controller
-@SessionAttributes("username")
-public class LoginController {
+@SessionAttributes("loginModel")
+public class LoginController 
+{
+	
+	 private final AuthenticationService authenticationService;
+
+	    // Constructor injection (DI)
+	    @Autowired
+	    public LoginController(AuthenticationService authenticationService) {
+	        this.authenticationService = authenticationService;
+	    }
 
     @GetMapping("/login")
     public String showLoginPage(Model model) {
-        model.addAttribute("login", new Login());
-        return "login";
+        // Create a new LoginModel instance and add it to the model
+        if (!model.containsAttribute("loginModel")) { // Check if loginModel is already in the session
+            model.addAttribute("loginModel", new LoginModel());
+        }
+        model.addAttribute("error", null); // Clear any previous error messages
+        return "login"; // Return the login page (login.html)
     }
 
     @PostMapping("/login")
-    public String processLogin(@Valid @ModelAttribute Login login, BindingResult result, Model model) {
-        if (result.hasErrors()) {
+    public String processLogin(LoginModel loginModel, Model model) 
+    {
+        if (authenticationService.authenticate(loginModel.getUsername(), loginModel.getPassword())) 
+        {
+            loginModel.setAuthenticated(true);
+            model.addAttribute("loginModel", loginModel);
+            return "redirect:/home";
+        } else 
+        {
+            model.addAttribute("error", "Invalid username or password");
+           
             return "login";
         }
-        // Accept any username/password
-        model.addAttribute("username", login.getUsername());
-        System.out.println("Logged in as: " + login.getUsername()); // Debug log
-        return "redirect:/";
+
     }
 
-    @GetMapping("/logout")
-    public String logout(SessionStatus status) {
-        status.setComplete();
-        return "redirect:/";
+    @GetMapping("/home")
+    public String showHomePage() 
+    {
+        return "home"; //returns to home.html
     }
 }

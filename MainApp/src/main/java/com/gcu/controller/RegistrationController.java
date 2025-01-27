@@ -1,5 +1,6 @@
 package com.gcu.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +18,9 @@ public class RegistrationController {
 	private final RegistrationService registrationService;
 	
 	 @Autowired
-	    public RegistrationController(RegistrationService registrationService) {
-	        this.registrationService = registrationService;
-	    }
+	 public RegistrationController(RegistrationService registrationService) {
+	    this.registrationService = registrationService;
+	 }
 	 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
