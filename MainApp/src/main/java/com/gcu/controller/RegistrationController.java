@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gcu.model.User;
-import com.gcu.service.RegistrationService;
+import com.gcu.services.RegistrationService;
 import jakarta.validation.Valid;
 
 @Controller

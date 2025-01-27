@@ -1,5 +1,8 @@
 package com.gcu.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import com.gcu.services.RegistrationService;
 import com.gcu.services.RegistrationServiceImpl;
 
