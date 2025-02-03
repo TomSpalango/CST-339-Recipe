@@ -1,6 +1,7 @@
 package com.gcu.repository;
 
 import com.gcu.model.User;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -14,13 +15,17 @@ public class UserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // Retrieve user by username
+    // Fetch user by username
     public User findByUsername(String username) {
         String sql = "SELECT * FROM users WHERE username = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{username}, userRowMapper);
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{username}, userRowMapper);
+        } catch (EmptyResultDataAccessException e) {
+            return null;  // if no user is found
+        }
     }
 
-    // Save user to database
+    // Insert new user into database
     public int save(User user) {
         String sql = "INSERT INTO users (first_name, last_name, email, phone, username, password) VALUES (?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhone(), user.getUsername(), user.getPassword());

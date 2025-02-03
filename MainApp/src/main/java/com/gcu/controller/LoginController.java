@@ -31,14 +31,18 @@ public class LoginController {
     @PostMapping("/login")
     public String processLogin(@ModelAttribute("login") Login login, Model model) {
         User user = userRepository.findByUsername(login.getUsername());
-        if (user != null && user.getPassword().equals(login.getPassword())) {
-            model.addAttribute("username", user.getUsername());
-            return "redirect:/";
-        } else {
+
+        if (user == null || !user.getPassword().equals(login.getPassword())) {
             model.addAttribute("error", "Invalid username or password");
             return "login";
         }
+
+        model.addAttribute("username", user.getUsername());
+
+        return "redirect:/?reload=true";
     }
+
+
 
     @GetMapping("/logout")
     public String logout(SessionStatus status) {
