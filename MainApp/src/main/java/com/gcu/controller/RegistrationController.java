@@ -8,11 +8,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gcu.model.User;
+import com.gcu.repository.UserRepository;
 
 import jakarta.validation.Valid;
 
 @Controller
 public class RegistrationController {
+
+    private final UserRepository userRepository;
+
+    public RegistrationController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -25,6 +32,8 @@ public class RegistrationController {
         if (result.hasErrors()) {
             return "register";
         }
+        
+        userRepository.save(user);
         model.addAttribute("message", "Registration successful!");
         return "register";
     }

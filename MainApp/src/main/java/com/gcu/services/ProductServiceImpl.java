@@ -15,7 +15,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public String createProduct(Product product) {
-		// TODO Auto-generated method stub
+		
 		productRepository.save(product); // This saves the product to the database
 		return "Product saved successfully: " + product.getName();
 	}

@@ -13,34 +13,29 @@ import jakarta.validation.Valid;
 
 @Controller
 public class ProductController {
-	
-	private final ProductService productService;
-	
-	public ProductController(ProductService productService) {
-		this.productService = productService;
-	}
-	
-	@GetMapping("/product/new")
-	public String showProductForm(Model model) {
-		model.addAttribute("product", new Product());
-		return "product_form";
-	}
-	
-	@PostMapping("/product/new")
-	public String createProduct(
-			@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {
-			return "product_form";
-		}
-		
-		productService.createProduct(product);
-		model.addAttribute("successMessage", "Product created successfully!");
-		return "product_form";
-	}
-	
-	//@GetMapping("/test")
-	//@ResponseBody
-	//public String test() {
-	//    return "Controller is working!";
-	//}
+    
+    private final ProductService productService;
+    
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+    
+    @GetMapping("/product/new")
+    public String showProductForm(Model model) {
+        model.addAttribute("product", new Product());
+        return "product_form";
+    }
+    
+    @PostMapping("/product/new")
+    public String createProduct(@Valid @ModelAttribute Product product, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "product_form";
+        }
+        
+        // Save the product using ProductService
+        productService.createProduct(product);
+        
+        model.addAttribute("successMessage", "Product created successfully!");
+        return "product_form";
+    }
 }
