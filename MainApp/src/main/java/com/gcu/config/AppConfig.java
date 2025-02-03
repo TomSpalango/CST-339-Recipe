@@ -14,20 +14,24 @@ import com.gcu.services.RegistrationServiceImpl;
 
 @Configuration
 @EnableJdbcRepositories(basePackages = "com.gcu.repository")
-public class AppConfig {
+public class AppConfig 
+{
 
     @Bean
-    public LoginService loginService() {
-        return new LoginServiceImpl();
+    public LoginService loginService(UserRepository userRepository) 
+    {
+        return new LoginServiceImpl(userRepository);
     }
 
     @Bean
-    public ProductService productService() {
+    public ProductService productService() 
+    {
         return new ProductServiceImpl();
     }
 
     @Bean
-    public RegistrationService registrationService(UserRepository userRepository) {
+    public RegistrationService registrationService(UserRepository userRepository) 
+    {
         return new RegistrationServiceImpl(userRepository);
     }
 }
