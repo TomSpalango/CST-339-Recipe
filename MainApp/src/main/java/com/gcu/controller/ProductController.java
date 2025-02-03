@@ -7,11 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.gcu.model.Product;
+import com.gcu.services.ProductService;
 
 import jakarta.validation.Valid;
 
 @Controller
 public class ProductController {
+	
+	private final ProductService productService;
+	
+	public ProductController(ProductService productService) {
+		this.productService = productService;
+	}
+	
 	@GetMapping("/product/new")
 	public String showProductForm(Model model) {
 		model.addAttribute("product", new Product());
@@ -25,7 +33,7 @@ public class ProductController {
 			return "product_form";
 		}
 		
-		// *FOR WHEN DATABASE IS IMPLEMENTED* save product to database
+		productService.createProduct(product);
 		model.addAttribute("successMessage", "Product created successfully!");
 		return "product_form";
 	}

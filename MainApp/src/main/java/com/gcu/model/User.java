@@ -1,18 +1,11 @@
 package com.gcu.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-@Table("users")
 public class User {
-
-    @Id
-    private Long id;
 
     @NotEmpty(message = "First name is required")
     private String firstName;
