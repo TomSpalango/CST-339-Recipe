@@ -1,5 +1,7 @@
 package com.gcu.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import com.gcu.model.Product;
 import com.gcu.repository.ProductRepository;
@@ -19,4 +21,9 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.save(product); // This saves the product to the database
 		return "Product saved successfully: " + product.getName();
 	}
+
+	@Override
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
 }

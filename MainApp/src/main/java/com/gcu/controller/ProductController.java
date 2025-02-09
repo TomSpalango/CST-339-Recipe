@@ -19,6 +19,11 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
+    @GetMapping("/products")
+    public String listProducts(Model model) {
+        model.addAttribute("products", productService.findAll());
+        return "product_list";
+    }
     
     @GetMapping("/product/new")
     public String showProductForm(Model model) {
