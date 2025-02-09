@@ -38,6 +38,13 @@ public class ProductController {
     	return "product_edit_form";
     }
     
+    @GetMapping("/product/delete/{id}")
+    public String deleteProduct(@PathVariable Long id, Model model) {
+        String message = productService.deleteProduct(id);
+        model.addAttribute("message", message);
+        	return "product_list";  // Redirect to product list page or any page showing the result 
+    }
+    
     @PostMapping("/product/new")
     public String createProduct(@Valid @ModelAttribute Product product, BindingResult result, Model model) {
         if (result.hasErrors()) {

@@ -46,4 +46,8 @@ public class ProductRepository {
         rs.getDouble("price"),
         rs.getString("description")
     );
+    public int delete(Long id) {
+    	String sql = "Delete from products where id = ?";
+    	return jdbcTemplate.update(sql, id);
+    }
 }

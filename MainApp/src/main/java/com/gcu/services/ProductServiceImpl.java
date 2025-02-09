@@ -29,4 +29,10 @@ public class ProductServiceImpl implements ProductService {
 		int rowsAffected = productRepository.update(product);
 		return (rowsAffected > 0) ? "Product updated successfully!" : "Product update failed!";
 	}
+	
+	@Override
+	public String deleteProduct(Long id) {
+		int rowsAffected = productRepository.delete(id);
+		return (rowsAffected > 0) ? "Product deleted successfully" : "Product deletion failed";
+	}
 }
