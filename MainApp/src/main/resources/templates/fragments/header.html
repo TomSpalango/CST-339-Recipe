@@ -28,6 +28,7 @@
 					    </a>
 					    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 					        <li><a class="dropdown-item" th:href="@{/product/new}">Create</a></li>
+							<li><a class="dropdown-item" th:href="@{/product/edit/{id}(id=${product.id})}">Edit</a></li> <!-- new edit option (should send to product display list) -->
 					    </ul>
 					</li>
                 </ul>

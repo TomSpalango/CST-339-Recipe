@@ -12,11 +12,21 @@ public class ProductServiceImpl implements ProductService {
     public ProductServiceImpl(ProductRepository productRepository) {
     	this.productRepository = productRepository;
     }
+    
+    public Product getProductById(Long id) {
+    	return productRepository.findById(id);
+    }
 
 	@Override
 	public String createProduct(Product product) {
 		
 		productRepository.save(product); // This saves the product to the database
 		return "Product saved successfully: " + product.getName();
+	}
+	
+	@Override
+	public String updateProduct(Product product) {
+		int rowsAffected = productRepository.update(product);
+		return (rowsAffected > 0) ? "Product updated successfully!" : "Product update failed!";
 	}
 }
