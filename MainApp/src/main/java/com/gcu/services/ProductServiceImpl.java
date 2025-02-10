@@ -1,6 +1,7 @@
 package com.gcu.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import com.gcu.model.Product;
@@ -14,11 +15,12 @@ public class ProductServiceImpl implements ProductService {
     public ProductServiceImpl(ProductRepository productRepository) {
     	this.productRepository = productRepository;
     }
-    @Override
-    public Product getProductById(String id) {
-    	return productRepository.findById(id);
-    }
 
+    @Override
+    public Optional<Product> getProductById(String id) {
+        return productRepository.findById(id); // Returns Optional<Product>
+    }
+    
 	@Override
 	public String createProduct(Product product) {
 		
@@ -39,9 +41,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public String deleteProduct(String id) {
-		int rowsAffected = productRepository.delete(id);
-		return (rowsAffected > 0) ? "Product deleted successfully" : "Product deletion failed";
+	    int rowsAffected = productRepository.delete(id);
+	    return (rowsAffected > 0) ? "Product deleted successfully" : "Product not found or already deleted.";
 	}
-
-
 }

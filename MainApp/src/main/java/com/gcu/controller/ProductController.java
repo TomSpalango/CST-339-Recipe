@@ -1,5 +1,7 @@
 package com.gcu.controller;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,12 +37,12 @@ public class ProductController {
     
     @GetMapping("/product/edit/{id}")
     public String showEditForm(@PathVariable String id, Model model) {
-    	Product product = productService.getProductById(id);
-    	if (product == null) {
-    		return "product_form"; // Redirect to product form list if not found
-    	}
-    	model.addAttribute("product", product);
-    	return "product_edit_form";
+        Optional<Product> product = productService.getProductById(id);
+        if (product.isEmpty()) {
+            return "redirect:/products"; // Redirect if product is not found
+        }
+        model.addAttribute("product", product.get());
+        return "product_edit_form";
     }
     
     @GetMapping("/product/delete/{id}")

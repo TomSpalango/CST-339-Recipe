@@ -12,25 +12,25 @@
 	
 	<div class="container mt-5">
 	    <h2>Edit Product</h2>
-	    <form th:action="@{/product/edit}" th:object="${product}" method="post">
-	        <input type="hidden" th:field="*{id}" />
-	        <div class="mb-3">
-	            <label for="name" class="form-label">Product Name:</label>
-	            <input type="text" class="form-control" id="name" th:field="*{name}" />
-	        </div>
-	        <div class="mb-3">
-	            <label for="quantity" class="form-label">Quantity:</label>
-	            <input type="number" class="form-control" id="quantity" th:field="*{quantity}" />
-	        </div>
-	        <div class="mb-3">
-	            <label for="price" class="form-label">Price:</label>
-	            <input type="number" step="0.01" class="form-control" id="price" th:field="*{price}" />
-	        </div>
-	        <div class="mb-3">
-	            <label for="description" class="form-label">Description:</label>
-	            <textarea class="form-control" id="description" th:field="*{description}"></textarea>
-	        </div>
-	        <button type="submit" class="btn btn-custom">Update Product</button>
+		<form th:action="@{/product/edit}" th:object="${product}" method="post">
+		    <input type="hidden" th:field="*{id}" />
+		    <div class="mb-3">
+		        <label for="name" class="form-label">Product Name:</label>
+		        <input type="text" class="form-control" id="name" th:field="*{name}" />
+		    </div>
+		    <div class="mb-3">
+		        <label for="quantity" class="form-label">Quantity:</label>
+		        <input type="number" class="form-control" id="quantity" th:field="*{quantity}" />
+		    </div>
+		    <div class="mb-3">
+		        <label for="price" class="form-label">Price:</label>
+		        <input type="number" step="0.01" class="form-control" id="price" th:field="*{price}" />
+		    </div>
+		    <div class="mb-3">
+		        <label for="description" class="form-label">Description:</label>
+		        <textarea class="form-control" id="description" th:field="*{description}"></textarea>
+		    </div>
+		    <button type="submit" class="btn btn-custom">Update Product</button>
 		</form>
         <p th:if="${successMessage}" th:text="${successMessage}"></p>
     </div>

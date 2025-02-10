@@ -1,6 +1,7 @@
 package com.gcu.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.gcu.model.Product;
 
@@ -10,7 +11,7 @@ public interface ProductService
 
     List<Product> findAll();
     String updateProduct(Product product);
-    Product getProductById(String id);
+    Optional<Product> getProductById(String id);
     String deleteProduct(String id); 
 
 }
