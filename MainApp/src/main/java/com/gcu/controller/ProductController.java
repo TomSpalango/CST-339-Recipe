@@ -64,12 +64,11 @@ public class ProductController {
     
     @PostMapping("/product/edit")
     public String updateProduct(@Valid @ModelAttribute Product product, BindingResult result, Model model) {
-    	if (result.hasErrors()) {
-    		return "product_edit_form";
-    	}
-    	
-    	String message = productService.updateProduct(product);
-    	model.addAttribute("successMessage", message);
-    	return "product_edit_form";
+        if (result.hasErrors()) {
+            return "product_edit_form";
+        }
+
+        productService.updateProduct(product);
+        return "redirect:/products";
     }
 }
