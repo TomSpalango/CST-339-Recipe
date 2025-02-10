@@ -18,9 +18,10 @@ public class ProductRepository {
 
     // Insert new product into database
     public int save(Product product) {
-        String sql = "INSERT INTO products (id, name, quantity, price, description) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO products (name, quantity, price, description) VALUES (?, ?, ?, ?)";
         return jdbcTemplate.update(sql, product.getName(), product.getQuantity(), product.getPrice(), product.getDescription());
     }
+
     
     // Update/edit an existing product
     public int update(Product product) {
