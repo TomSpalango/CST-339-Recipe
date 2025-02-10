@@ -44,10 +44,9 @@ public class ProductController {
     }
     
     @GetMapping("/product/delete/{id}")
-    public String deleteProduct(@PathVariable String id, Model model) {
-        String message = productService.deleteProduct(id);
-        model.addAttribute("message", message);
-        	return "product_list";  // Redirect to product list page or any page showing the result 
+    public String deleteProduct(@PathVariable String id) {
+        productService.deleteProduct(id);
+        return "redirect:/products";
     }
     
     @PostMapping("/product/new")
