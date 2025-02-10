@@ -24,6 +24,11 @@ h1 {
     color: white;
 }
 
+.btn-custom:hover {
+    background-color: #a52a2a;
+    color: white;
+}
+
 .navbar-custom .navbar-nav .nav-link {
     color: white;
 }
