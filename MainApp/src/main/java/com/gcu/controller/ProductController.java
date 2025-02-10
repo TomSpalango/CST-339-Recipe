@@ -34,7 +34,7 @@ public class ProductController {
     }
     
     @GetMapping("/product/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditForm(@PathVariable String id, Model model) {
     	Product product = productService.getProductById(id);
     	if (product == null) {
     		return "product_form"; // Redirect to product form list if not found
@@ -44,7 +44,7 @@ public class ProductController {
     }
     
     @GetMapping("/product/delete/{id}")
-    public String deleteProduct(@PathVariable Long id, Model model) {
+    public String deleteProduct(@PathVariable String id, Model model) {
         String message = productService.deleteProduct(id);
         model.addAttribute("message", message);
         	return "product_list";  // Redirect to product list page or any page showing the result 

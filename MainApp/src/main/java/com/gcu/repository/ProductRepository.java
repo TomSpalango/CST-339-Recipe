@@ -28,7 +28,7 @@ public class ProductRepository {
     	return jdbcTemplate.update(sql, product.getName(), product.getQuantity(), product.getPrice(), product.getDescription(), product.getId());
     }
 
-    public Product findById(Long id) {
+    public Product findById(String id) {
     	String sql  = "SELECT * FROM products WHERE id = ?";
     	return jdbcTemplate.queryForObject(sql,  productRowMapper, id);
     }
@@ -46,7 +46,7 @@ public class ProductRepository {
         rs.getDouble("price"),
         rs.getString("description")
     );
-    public int delete(Long id) {
+    public int delete(String id) {
     	String sql = "Delete from products where id = ?";
     	return jdbcTemplate.update(sql, id);
     }
