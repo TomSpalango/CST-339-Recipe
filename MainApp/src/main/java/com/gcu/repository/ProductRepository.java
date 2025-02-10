@@ -1,6 +1,8 @@
 package com.gcu.repository;
 
 import com.gcu.model.Product;
+
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -30,10 +32,13 @@ public class ProductRepository {
     }
 
     public Product findById(String id) {
-    	String sql  = "SELECT * FROM products WHERE id = ?";
-    	return jdbcTemplate.queryForObject(sql,  productRowMapper, id);
-    }
-    
+        String sql  = "SELECT * FROM products WHERE id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, productRowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }    
     // Retrieve all products
     public List<Product> findAll() {
         String sql = "SELECT * FROM products";
