@@ -12,29 +12,53 @@ import com.gcu.repository.UserRepository;
 
 import jakarta.validation.Valid;
 
+/**
+ * Controller responsible for user registration functionality.
+ * Handles displaying the registration form and processing user sign-ups.
+ */
 @Controller
 public class RegistrationController {
 
     private final UserRepository userRepository;
 
+    /**
+     * Constructor for injecting the UserRepository dependency.
+     * 
+     * @param userRepository The repository for saving user registration data.
+     */
     public RegistrationController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Displays the user registration form.
+     * 
+     * @param model The model used to bind form data.
+     * @return The "register" view template.
+     */
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new User()); // Initialize an empty user object for the form
         return "register";
     }
 
+    /**
+     * Handles user registration form submission.
+     * 
+     * @param user   The user object containing registration details.
+     * @param result BindingResult for handling validation errors.
+     * @param model  The model to store attributes for rendering the view.
+     * @return The "register" page if there are validation errors, otherwise stays on the same page with a success message.
+     */
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "register";
+            return "register"; // Reload the form with validation errors
         }
-        
-        userRepository.save(user);
-        model.addAttribute("message", "Registration successful!");
+
+        userRepository.save(user); // Save user details in the database
+
+        model.addAttribute("message", "Registration successful!"); // Display success message
         return "register";
     }
 }

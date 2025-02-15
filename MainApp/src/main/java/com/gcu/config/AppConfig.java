@@ -15,24 +15,51 @@ import com.gcu.services.ProductServiceImpl;
 import com.gcu.services.RegistrationService;
 import com.gcu.services.RegistrationServiceImpl;
 
+/**
+ * Application Configuration Class
+ * Defines and provides Spring-managed beans for dependency injection.
+ */
 @Configuration
 public class AppConfig {
 
+    /**
+     * Bean for LoginService
+     * 
+     * @param userRepository The UserRepository dependency for authentication.
+     * @return An instance of LoginServiceImpl.
+     */
     @Bean
     public LoginService loginService(UserRepository userRepository) {
         return new LoginServiceImpl(userRepository);
     }
     
+    /**
+     * Bean for ProductService
+     * 
+     * @param productRepository The ProductRepository dependency for product management.
+     * @return An instance of ProductServiceImpl.
+     */
     @Bean
     public ProductService productService(ProductRepository productRepository) {
         return new ProductServiceImpl(productRepository);
     }
 
+    /**
+     * Bean for RegistrationService
+     * 
+     * @param userRepository The UserRepository dependency for user registration.
+     * @return An instance of RegistrationServiceImpl.
+     */
     @Bean
     public RegistrationService registrationService(UserRepository userRepository) {
         return new RegistrationServiceImpl(userRepository);
     }
     
+    /**
+     * Bean for configuring the DataSource.
+     * 
+     * @return A configured DataSource using MySQL.
+     */
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -43,6 +70,12 @@ public class AppConfig {
         return dataSource;
     }
     
+    /**
+     * Bean for JdbcTemplate to simplify database access.
+     * 
+     * @param dataSource The DataSource dependency.
+     * @return An instance of JdbcTemplate.
+     */
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
