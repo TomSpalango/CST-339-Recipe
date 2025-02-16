@@ -4,14 +4,19 @@ import com.gcu.model.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
+
+import java.util.Collections;
 
 /**
  * Repository class responsible for database operations related to users.
  * Uses Spring JDBC (`JdbcTemplate`) to interact with the `users` table.
  */
 @Repository
-public class UserRepository {
+public class UserRepository implements UserDetailsService {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -22,6 +27,26 @@ public class UserRepository {
      */
     public UserRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+    
+    /**
+     * Load User by their username
+     * 
+     * @param username The username to search for.
+     * @return UserDetails Object for Spring Security
+     * @throws UsernameNotFoundException If user is not found
+     */
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    	User user = findByUsername(username);
+    	if (user == null) {
+    		throw new UsernameNotFoundException("User not found: " + username);
+    	}
+    	return new org.springframework.security.core.userdetails.User(
+    			user.getUsername(),
+    			user.getPassword(),
+    			Collections.emptyList()
+    	);
     }
 
     /**

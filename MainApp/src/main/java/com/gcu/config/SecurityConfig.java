@@ -25,14 +25,17 @@ public class SecurityConfig {
                 .requestMatchers("/login", "/register").permitAll() // Allow access to login and registration pages
                 .anyRequest().authenticated() // Secure all other pages
             )
+            	.userDetailsService(userDetailsService)
                 .formLogin((form) -> form
                 .loginPage("/login") // Redirect to login page if unauthorized
                 .defaultSuccessUrl("/", true)
                 .permitAll()
             )
             .logout((logout) -> logout
-                .permitAll()
+                .logoutSuccessUrl("/login?logout")
+            	.permitAll()
             );
+        
         return http.build();
     }
 
