@@ -1,5 +1,6 @@
 package com.gcu.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,5 +31,13 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout() {
         return "redirect:/"; // Should redirect to home page after logout
+    }
+    
+    @GetMapping("/test-auth")
+    public String testAuth(Authentication authentication) {
+        if (authentication == null) {
+            return "NOT LOGGED IN";
+        }
+        return "LOGGED IN AS: " + authentication.getName();
     }
 }

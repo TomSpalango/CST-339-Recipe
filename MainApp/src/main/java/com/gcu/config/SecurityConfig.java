@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 import java.util.List;
 
@@ -35,16 +36,16 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    
     /**
      * Configures authentication manager with DAO authentication provider.
      */
     @Bean
-    public AuthenticationManager authenticationManager() {
+    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
-        return new ProviderManager(List.of(authProvider));
+        return new ProviderManager(authProvider);
     }
 
     /**
@@ -53,13 +54,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Temporarily disable CSRF for debugging
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/register", "/css/**", "/js/**", "/images/**").permitAll() // Allow public access
+                .requestMatchers("/login", "/register", "/error", "/css/**", "/js/**", "/logo/**").permitAll()
                 .anyRequest().authenticated()
             )
-            .formLogin(login -> login
+            .formLogin(form -> form
                 .loginPage("/login")
+                .loginProcessingUrl("/perform_login")
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/login?error=true")
                 .permitAll()
@@ -67,11 +68,8 @@ public class SecurityConfig {
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout=true")
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
                 .permitAll()
-            );
-
+            )
+            .csrf(csrf -> csrf.ignoringRequestMatchers("/login")); // Ensure CSRF is handled properly
         return http.build();
-    }
-}
+    }}
