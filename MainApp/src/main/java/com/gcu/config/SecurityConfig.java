@@ -9,12 +9,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final UserDetailsService userDetailsService;
     
-    public SecurityConfig(UserDetailsService userDetailsService) {
+    private final UserDetailsService userDetailsService;
+
+    /**
+     * Constructor explicitly using the correct UserDetailsService bean.
+     * 
+     * @param userDetailsService The implementation used for authentication.
+     */
+    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -25,17 +33,17 @@ public class SecurityConfig {
                 .requestMatchers("/login", "/register").permitAll() // Allow access to login and registration pages
                 .anyRequest().authenticated() // Secure all other pages
             )
-            	.userDetailsService(userDetailsService)
-                .formLogin((form) -> form
+            .userDetailsService(userDetailsService)
+            .formLogin((form) -> form
                 .loginPage("/login") // Redirect to login page if unauthorized
                 .defaultSuccessUrl("/", true)
                 .permitAll()
             )
             .logout((logout) -> logout
                 .logoutSuccessUrl("/login?logout")
-            	.permitAll()
+                .permitAll()
             );
-        
+
         return http.build();
     }
 
@@ -43,5 +51,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
 }
