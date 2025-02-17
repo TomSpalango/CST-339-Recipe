@@ -21,7 +21,7 @@ public class LoginController {
      */
     @GetMapping("/login")
     public String showLoginPage(Model model) {
-        model.addAttribute("login", new Login()); // Initialize an empty login form.
+//        model.addAttribute("login", new Login()); // Initialize an empty login form.
         return "login";
     }
 
