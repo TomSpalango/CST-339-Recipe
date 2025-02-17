@@ -1,7 +1,7 @@
-<header>
+<header th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" th:href="@{/}">
                 <img th:src="@{/logo/logo.png}" alt="Logo" style="height: 40px;">
                 SavoryScript
             </a>
@@ -10,24 +10,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item" th:if="${username == null}">
-                        <a class="nav-link" th:href="@{/login}">Login</a>
-                    </li>
-                    <li class="nav-item" th:if="${username == null}">
-                        <a class="nav-link" th:href="@{/register}">Register</a>
-                    </li>
-                    <li class="nav-item" th:if="${username != null}">
-                        <a class="nav-link" th:href="@{/logout}">Logout</a>
-                    </li>
-                    <li class="nav-item dropdown">
+					<li class="nav-item" th:if="${not #authorization.expression('isAuthenticated()')}">
+					    <a class="nav-link" th:href="@{/login}">Login</a>
+					</li>
+					<li class="nav-item" th:if="${not #authorization.expression('isAuthenticated()')}">
+					    <a class="nav-link" th:href="@{/register}">Register</a>
+					</li>
+					<li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+					    <a class="nav-link" th:href="@{/logout}">Logout</a>
+					</li>
+					<li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Product
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" th:href="@{/product/new}">Create</a></li>
-                            <li th:if="${product != null}">
-                                <a class="dropdown-item" th:href="@{/product/edit/{id}(id=${product.id})}">Edit</a>
-                            </li>
+                            <li><a class="dropdown-item" th:href="@{/product/list}">View Products</a></li>
                         </ul>
                     </li>
                 </ul>

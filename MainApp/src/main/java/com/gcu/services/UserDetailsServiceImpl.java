@@ -1,15 +1,16 @@
 package com.gcu.services;
 
 import com.gcu.model.User;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import com.gcu.repository.UserRepository;
 
 @Service
+@Primary  // Marking this as the preferred UserDetailsService bean
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -29,5 +30,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         builder.roles("USER");
         return builder.build();
     }
-
 }
