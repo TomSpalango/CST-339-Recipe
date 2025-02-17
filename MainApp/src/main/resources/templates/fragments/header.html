@@ -11,33 +11,33 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    
                     <!-- Show Login/Register if not authenticated -->
-                    <li class="nav-item" th:if="${#authentication == null or !#authentication.authenticated}">
+                    <li class="nav-item" th:if="${not #authorization.expression('isAuthenticated()')}">
                         <a class="nav-link" th:href="@{/login}">Login</a>
                     </li>
-                    <li class="nav-item" th:if="${#authentication == null or !#authentication.authenticated}">
+                    <li class="nav-item" th:if="${not #authorization.expression('isAuthenticated()')}">
                         <a class="nav-link" th:href="@{/register}">Register</a>
                     </li>
 
-                    <!-- Show Logout if authenticated -->
-                    <li class="nav-item" th:if="${#authentication != null and #authentication.authenticated}">
-                        <form th:action="@{/logout}" method="post">
-                            <button class="nav-link btn btn-link" type="submit" style="border: none; background: none; cursor: pointer;">
-                                Logout
-                            </button>
-                        </form>
-                    </li>
-
-                    <!-- Show Product menu if authenticated -->
-                    <li class="nav-item dropdown" th:if="${#authentication != null and #authentication.authenticated}">
+                    <!-- Show Logout and Product menu if authenticated -->
+                    <li class="nav-item dropdown" th:if="${#authorization.expression('isAuthenticated()')}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Product
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" th:href="@{/product/new}">Create</a></li>
-                            <li><a class="dropdown-item" th:href="@{/product/list}">View Products</a></li>
+                            <li><a class="dropdown-item" th:href="@{/products}">View Products</a></li>
                         </ul>
+                    </li>
+
+                    <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <form th:action="@{/logout}" method="post">
+                            <button class="nav-link btn btn-link" type="submit" style="border: none; background: none; cursor: pointer;">
+                                Logout
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>
