@@ -12,20 +12,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.config.Customizer;
 
-import java.util.List;
+
+
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig 
+{
 
     private final UserDetailsServiceImpl userDetailsService;
 
     /**
      * Constructor-based injection of UserDetailsServiceImpl.
      */
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
+    
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService) 
+    {
         this.userDetailsService = userDetailsService;
     }
 
@@ -33,7 +37,8 @@ public class SecurityConfig {
      * Bean to encode passwords using BCrypt hashing algorithm.
      */
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() 
+    {
         return new BCryptPasswordEncoder();
     }
     
@@ -41,7 +46,8 @@ public class SecurityConfig {
      * Configures authentication manager with DAO authentication provider.
      */
     @Bean
-    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
+    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) 
+    {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
@@ -52,24 +58,28 @@ public class SecurityConfig {
      * Configures security settings, including authentication and authorization.
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/register", "/error", "/css/**", "/js/**", "/logo/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/login?error=true")
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true")
-                .permitAll()
-            )
-            .csrf(csrf -> csrf.ignoringRequestMatchers("/login")); // Ensure CSRF is handled properly
-        return http.build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception 
+    {
+    	http
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/login", "/register", "/error", "/css/**", "/js/**", "/logo/**").permitAll()
+            .requestMatchers("/api/products/**").authenticated()
+            .anyRequest().authenticated()
+        )
+        .httpBasic(Customizer.withDefaults()) 
+        .formLogin(form -> form
+            .loginPage("/login")
+            .loginProcessingUrl("/perform_login")
+            .defaultSuccessUrl("/", true)
+            .failureUrl("/login?error=true")
+            .permitAll()
+        )
+        .logout(logout -> logout
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login?logout=true")
+            .permitAll()
+        )
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**")); // Disable CSRF for APIs
+
+    return http.build();
     }}
