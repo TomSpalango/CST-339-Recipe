@@ -56,7 +56,18 @@ public class ProductRepository {
 
         return rowsAffected;
     }
-
+    
+    /**
+     * RowMapper for mapping SQL result set rows to Product objects.
+     */
+    private final RowMapper<Product> productRowMapper = (rs, rowNum) -> new Product(
+        rs.getLong("id"),
+        rs.getString("name"),
+        rs.getInt("quantity"),
+        rs.getDouble("price"),
+        rs.getString("description")
+    );
+    
     /**
      * Finds a product by its ID.
      * 
@@ -93,14 +104,4 @@ public class ProductRepository {
         return jdbcTemplate.update(sql, id);
     }
 
-    /**
-     * RowMapper for mapping SQL result set rows to Product objects.
-     */
-    private final RowMapper<Product> productRowMapper = (rs, rowNum) -> new Product(
-        rs.getLong("id"),
-        rs.getString("name"),
-        rs.getInt("quantity"),
-        rs.getDouble("price"),
-        rs.getString("description")
-    );
 }

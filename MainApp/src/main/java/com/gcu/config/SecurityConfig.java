@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.Customizer;
+
 
 
 
@@ -46,7 +46,7 @@ public class SecurityConfig
      * Configures authentication manager with DAO authentication provider.
      */
     @Bean
-    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) 
+    public AuthenticationManager authenticationManager(UserDetailsServiceImpl userDetailsService) 
     {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
@@ -58,15 +58,15 @@ public class SecurityConfig
      * Configures security settings, including authentication and authorization.
      */
     @Bean
+
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception 
     {
     	http
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/login", "/register", "/error", "/css/**", "/js/**", "/logo/**").permitAll()
-            .requestMatchers("/api/products/**").authenticated()
+            .requestMatchers("/api/products/**").authenticated() // Ensuring authentication for API products
             .anyRequest().authenticated()
         )
-        .httpBasic(Customizer.withDefaults()) 
         .formLogin(form -> form
             .loginPage("/login")
             .loginProcessingUrl("/perform_login")
@@ -79,7 +79,7 @@ public class SecurityConfig
             .logoutSuccessUrl("/login?logout=true")
             .permitAll()
         )
-        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**")); // Disable CSRF for APIs
+        .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**")); // Disabling CSRF for APIs
 
     return http.build();
     }}
