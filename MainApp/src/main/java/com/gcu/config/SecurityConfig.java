@@ -55,7 +55,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/register", "/error", "/css/**", "/js/**", "/logo/**").permitAll()
+                .requestMatchers("/login", "/register", "/error", "/css/**", "/js/**", "/logo/**", "/api/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -72,4 +72,5 @@ public class SecurityConfig {
             )
             .csrf(csrf -> csrf.ignoringRequestMatchers("/login")); // Ensure CSRF is handled properly
         return http.build();
-    }}
+    }
+}
