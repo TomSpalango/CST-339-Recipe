@@ -60,15 +60,29 @@ public class SecurityConfig
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/register", "/error", "/css/**", "/js/**", "/logo/**").permitAll()
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/products").authenticated()
                 .anyRequest().authenticated()
-                )
-                .httpBasic(withDefaults())
-                .csrf(csrf -> csrf.disable());
-            return http.build();
-        }
+            )
+            .formLogin(login -> login
+                .loginPage("/login")
+                .loginProcessingUrl("/perform_login")
+                .defaultSuccessUrl("/", true)
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll()
+            )
+            .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/api/**")
+            );
 
-    
+        return http.build();
     }
+}
 
