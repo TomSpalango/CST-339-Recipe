@@ -1,20 +1,20 @@
 package com.gcu.config;
 
-import com.gcu.services.UserDetailsServiceImpl;
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
-import java.util.List;
+import com.gcu.services.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -51,25 +51,16 @@ public class SecurityConfig {
     /**
      * Configures security settings, including authentication and authorization.
      */
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/register", "/error", "/css/**", "/js/**", "/logo/**").permitAll()
                 .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/login?error=true")
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true")
-                .permitAll()
-            )
-            .csrf(csrf -> csrf.ignoringRequestMatchers("/login")); // Ensure CSRF is handled properly
-        return http.build();
-    }}
+                )
+                .httpBasic(withDefaults())
+                .csrf(csrf -> csrf.disable());
+            return http.build();
+        }
+    }
