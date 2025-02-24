@@ -18,14 +18,17 @@ import com.gcu.services.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig 
+{
 
     private final UserDetailsServiceImpl userDetailsService;
 
     /**
      * Constructor-based injection of UserDetailsServiceImpl.
      */
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
+    
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService) 
+    {
         this.userDetailsService = userDetailsService;
     }
 
@@ -33,7 +36,8 @@ public class SecurityConfig {
      * Bean to encode passwords using BCrypt hashing algorithm.
      */
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() 
+    {
         return new BCryptPasswordEncoder();
     }
     
@@ -41,7 +45,8 @@ public class SecurityConfig {
      * Configures authentication manager with DAO authentication provider.
      */
     @Bean
-    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
+    public AuthenticationManager authenticationManager(UserDetailsServiceImpl userDetailsService) 
+    {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
@@ -63,4 +68,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable());
             return http.build();
         }
+
+    
     }
+
