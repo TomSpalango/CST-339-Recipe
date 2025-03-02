@@ -15,6 +15,8 @@ import jakarta.validation.Valid;
 /**
  * Controller responsible for user registration functionality.
  * Handles displaying the registration form and processing user sign-ups.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 @Controller
 public class RegistrationController {

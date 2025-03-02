@@ -17,10 +17,12 @@ import jakarta.validation.Valid;
 /**
  * Controller responsible for managing product-related operations.
  * Handles product listing, creation, editing, and deletion.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 @Controller
 public class ProductController {
-    
+
     private final ProductService productService;
 
     /**

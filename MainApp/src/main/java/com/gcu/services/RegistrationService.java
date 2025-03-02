@@ -5,6 +5,8 @@ import com.gcu.model.User;
 /**
  * Service interface for handling user registration.
  * Defines the contract for registering new users.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 public interface RegistrationService {
 

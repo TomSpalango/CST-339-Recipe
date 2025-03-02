@@ -8,7 +8,9 @@ import com.gcu.model.Login;
 
 /**
  * Controller responsible for handling login and logout functionality.
- * Manages user authentication and session attributes.
+ * This class manages user authentication and session attributes.
+ *
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 @Controller
 public class LoginController {
@@ -16,23 +18,31 @@ public class LoginController {
     /**
      * Displays the login page.
      *
-     * @param model The model to add attributes to the login form.
+     * @param model The model to add attributes for the login form.
      * @return The "login" view template.
      */
     @GetMapping("/login")
     public String showLoginPage(Model model) {
-//        model.addAttribute("login", new Login()); // Initialize an empty login form.
         return "login";
     }
 
     /**
-     * Spring Security handles logout automatically.
+     * Handles user logout.
+     * Spring Security automatically manages the logout process.
+     *
+     * @return A redirect to the home page after logout.
      */
     @GetMapping("/logout")
     public String logout() {
-        return "redirect:/"; // Should redirect to home page after logout
+        return "redirect:/";
     }
-    
+
+    /**
+     * Test endpoint to verify user authentication.
+     *
+     * @param authentication The authentication object representing the logged-in user.
+     * @return A message indicating whether the user is logged in and their username.
+     */
     @GetMapping("/test-auth")
     public String testAuth(Authentication authentication) {
         if (authentication == null) {

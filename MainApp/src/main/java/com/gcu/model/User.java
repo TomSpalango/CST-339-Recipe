@@ -10,6 +10,8 @@ import org.springframework.data.relational.core.mapping.Table;
 /**
  * Model representing a user entity.
  * Mapped to the "users" table in MySQL.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 @Table("users") // Maps this class to the "users" table in the database
 public class User {

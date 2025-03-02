@@ -13,6 +13,8 @@ import java.util.Optional;
 /**
  * Repository class responsible for database operations related to products.
  * Uses Spring JDBC (`JdbcTemplate`) to interact with the `products` table.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 @Repository
 public class ProductRepository {

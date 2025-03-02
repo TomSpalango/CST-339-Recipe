@@ -17,13 +17,22 @@ import com.gcu.services.RegistrationServiceImpl;
 
 /**
  * Application Configuration Class
- * Defines and provides Spring-managed beans for dependency injection.
+ * <p>
+ * Defines and provides Spring-managed beans for dependency injection, including 
+ * services, repositories, and database configurations.
+ * </p>
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 @Configuration
 public class AppConfig {
 
     /**
-     * Bean for LoginService
+     * Creates a LoginService bean.
+     * <p>
+     * Provides an instance of LoginServiceImpl using UserRepository 
+     * for handling authentication-related operations.
+     * </p>
      * 
      * @param userRepository The UserRepository dependency for authentication.
      * @return An instance of LoginServiceImpl.
@@ -34,7 +43,11 @@ public class AppConfig {
     }
     
     /**
-     * Bean for ProductService
+     * Creates a ProductService bean.
+     * <p>
+     * Provides an instance of ProductServiceImpl using ProductRepository 
+     * for managing product-related operations.
+     * </p>
      * 
      * @param productRepository The ProductRepository dependency for product management.
      * @return An instance of ProductServiceImpl.
@@ -45,7 +58,11 @@ public class AppConfig {
     }
 
     /**
-     * Bean for RegistrationService
+     * Creates a RegistrationService bean.
+     * <p>
+     * Provides an instance of RegistrationServiceImpl using UserRepository 
+     * for user registration functionalities.
+     * </p>
      * 
      * @param userRepository The UserRepository dependency for user registration.
      * @return An instance of RegistrationServiceImpl.
@@ -56,9 +73,13 @@ public class AppConfig {
     }
     
     /**
-     * Bean for configuring the DataSource.
+     * Configures the application's data source.
+     * <p>
+     * Establishes a connection to the MySQL database and configures the 
+     * necessary credentials.
+     * </p>
      * 
-     * @return A configured DataSource using MySQL.
+     * @return A configured DataSource for MySQL.
      */
     @Bean
     public DataSource dataSource() {
@@ -71,7 +92,11 @@ public class AppConfig {
     }
     
     /**
-     * Bean for JdbcTemplate to simplify database access.
+     * Configures JdbcTemplate for database operations.
+     * <p>
+     * Simplifies interactions with the database by providing a higher-level 
+     * abstraction over JDBC.
+     * </p>
      * 
      * @param dataSource The DataSource dependency.
      * @return An instance of JdbcTemplate.

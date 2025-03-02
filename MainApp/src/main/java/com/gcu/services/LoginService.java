@@ -5,6 +5,8 @@ import com.gcu.model.Login;
 /**
  * Service interface for handling user authentication.
  * Defines the contract for login validation.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 public interface LoginService {
 

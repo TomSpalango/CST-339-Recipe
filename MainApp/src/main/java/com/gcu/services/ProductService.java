@@ -7,6 +7,8 @@ import com.gcu.model.Product;
 /**
  * Service interface for handling product-related operations.
  * Defines the contract for creating, retrieving, updating, and deleting products.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 public interface ProductService {
 

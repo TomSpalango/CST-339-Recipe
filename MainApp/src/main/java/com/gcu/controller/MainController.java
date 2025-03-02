@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 /**
  * Controller responsible for handling requests to the main page.
  * Ensures that the homepage (`/`) is accessible.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 @Controller
 @SessionAttributes("username") // Retains the username session attribute for logged-in users.

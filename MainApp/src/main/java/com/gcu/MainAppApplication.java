@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Main entry point for the Spring Boot application.
  * This class bootstraps and launches the Spring Boot application.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 @SpringBootApplication
 public class MainAppApplication {

@@ -9,6 +9,8 @@ import org.springframework.data.relational.core.mapping.Table;
 /**
  * Model representing a product entity.
  * Mapped to the "products" table in MySQL.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 @Table("products") // Mapping to MySQL table "products"
 public class Product {

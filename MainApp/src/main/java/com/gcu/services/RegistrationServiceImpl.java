@@ -7,6 +7,8 @@ import com.gcu.repository.UserRepository;
 /**
  * Service implementation for handling user registration.
  * Uses `UserRepository` to persist user data in the database.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 @Service
 public class RegistrationServiceImpl implements RegistrationService {

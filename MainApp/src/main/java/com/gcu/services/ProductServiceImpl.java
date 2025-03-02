@@ -10,6 +10,8 @@ import com.gcu.repository.ProductRepository;
 /**
  * Service implementation for handling product-related operations.
  * Uses `ProductRepository` to interact with the database.
+ * 
+ * @author Seline Bowens, Ty Gilbert, Tom Spalango, Robert Townsend
  */
 @Service
 public class ProductServiceImpl implements ProductService {
